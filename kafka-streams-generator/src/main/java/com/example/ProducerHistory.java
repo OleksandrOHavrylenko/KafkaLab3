@@ -1,15 +1,20 @@
 package com.example;
 
+import com.opencsv.*;
+import com.opencsv.exceptions.CsvException;
 import org.apache.kafka.clients.producer.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.Future;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Oleksandr Havrylenko
@@ -27,9 +32,9 @@ public class ProducerHistory {
     }
 
     public void produce() {
-        try {
-            logger.info("Sending history messages to kafka topic: {}.", this.getTopic());
-            List<String> linesToProduce = Files.readAllLines(Paths.get(filePath));
+        logger.info("Sending history messages to kafka topic: {}.", this.getTopic());
+        try (CSVReader reader = new CSVReaderBuilder(new FileReader(filePath)).withCSVParser(new RFC4180Parser()).build()) {
+            List<String[]> linesToProduce = reader.readAll();
             linesToProduce.stream()
                     .skip(1)
                     .map(this::createProducerRecord)
@@ -38,19 +43,20 @@ public class ProducerHistory {
             logger.info("Produced {} events to kafka topic: {}.", linesToProduce.size(), getTopic());
         } catch (IOException e) {
             logger.error("Error reading file {} due to ", filePath, e);
+        } catch (CsvException e) {
+            logger.error("csv file reading exception: ", e);
         } finally {
             logger.info("ProducerApp shutdown ");
             shutdown();
         }
     }
 
-    private ProducerRecord<String, String> createProducerRecord(final String line) {
-        final String[] parts = line.split(",");
-        if(parts.length != 6){
-            logger.error("Parsed history message line from file: {} with error: {}", this.filePath , line);
-            return new ProducerRecord<>(this.dlq,"producer" , line);
+    private ProducerRecord<String, String> createProducerRecord(final String[] line) {
+        if(line.length != 6){
+            logger.error("Parsed history message: size={}, line: {}, ", line.length, line);
+            return new ProducerRecord<>(this.dlq,"producer" , String.join(",", line));
         }
-        return new ProducerRecord<>(this.topic, line);
+        return new ProducerRecord<>(this.topic, String.join(",", line));
     }
 
     private Future<RecordMetadata> sendEvent(final ProducerRecord<String, String> record) {
