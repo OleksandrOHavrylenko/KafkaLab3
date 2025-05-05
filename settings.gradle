@@ -1,0 +1,3 @@
+rootProject.name = 'kafka-streams-lab'
+include 'kafka-streams-producer'
+
