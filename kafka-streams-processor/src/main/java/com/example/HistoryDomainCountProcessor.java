@@ -21,9 +21,10 @@ import java.net.URL;
 @Component
 public class HistoryDomainCountProcessor {
     private static final Logger logger = LoggerFactory.getLogger(HistoryDomainCountProcessor.class);
-    public static final String INPUT_TOPIC = "history";
+    public static final String INPUT_TOPIC = System.getenv()
+            .getOrDefault("INPUT_TOPIC", "history");
     public static final String OUTPUT_TOPIC = "output-domain-counts";
-    public static final String DOMAIN_COUNTS_STORE = "domain-counts";
+    public static final String DOMAIN_COUNTS_STORE = "domain-counts-store";
 
     @Autowired
     private CSVParser parser;
@@ -43,7 +44,7 @@ public class HistoryDomainCountProcessor {
                 .groupBy((key, domain) -> domain, Grouped.with(Serdes.String(), Serdes.String()))
                 .count(Materialized.<String, Long, KeyValueStore<Bytes, byte[]>>as(DOMAIN_COUNTS_STORE));
 
-        wordCounts.toStream().to(OUTPUT_TOPIC);
+//        wordCounts.toStream().to(OUTPUT_TOPIC);
     }
 
     private String getTopLevelDomain(final String host) {

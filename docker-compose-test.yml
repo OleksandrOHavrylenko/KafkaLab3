@@ -13,34 +13,20 @@ services:
       OUTPUT_TOPIC: "history"
       DEAD_LETTER_QUEUE: "dlq"
       INPUT_FILE_PATH: "input/history.csv"
-#    depends_on:
-#      - report-reddits
-#      - consumer-reddits
 
-#  consumer-reddits:
-#    container_name: consumer-reddits
-#    image: consumer-reddits
-#    build:
-#      context: .
-#      dockerfile: Dockerfile-consumer
-#    networks:
-#      - kafka-net
-#    environment:
-#      INPUT_TOPIC: "subreddits"
-#      OUTPUT_TOPIC: "metric"
-#      TEST_NAME: "test1"
-#
-#
-#  report-reddits:
-#    container_name: report-reddits
-#    image: report-reddits
-#    build:
-#      context: .
-#      dockerfile: Dockerfile-report
-#    networks:
-#      - kafka-net
-#    environment:
-#      INPUT_TOPIC: "metric"
+  processor-history:
+    container_name: processor-history
+    image: processor-history
+    build:
+      context: .
+      dockerfile: Dockerfile-processor
+    networks:
+      - kafka-net
+    environment:
+      INPUT_TOPIC: "history"
+      CONSUMER_GROUP: "domain-count-processor"
+    depends_on:
+      - producer-history
 
 networks:
   kafka-net:

@@ -7,7 +7,7 @@ COPY gradlew .
 COPY gradle ./gradle
 
 # Copy the build configuration and source code
-COPY ./kafka-streams-generator ./
+COPY ./kafka-streams-processor ./
 
 # Build the application
 RUN ./gradlew build
@@ -17,14 +17,11 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copy the JAR file from the build stage
-COPY --from=build /app/build/libs/*-SNAPSHOT.jar generator-history.jar
+COPY --from=build /app/build/libs/*-SNAPSHOT.jar processor-history.jar
 
-ENV OUTPUT_TOPIC="history"
-ENV DEAD_LETTER_QUEUE="dlq"
+ENV INPUT_TOPIC="history"
 ENV BOOTSTRAP_SERVERS="broker-1:19092, broker-2:19092, broker-3:19092"
-ENV INPUT_FILE_PATH="input/history.csv"
-ENV CLIENT_ID="history-producer"
-ENV ACKS="1"
+ENV CONSUMER_GROUP="domain-count-processor"
 
 # Run the application
-ENTRYPOINT ["java", "-jar", "generator-history.jar"]
+ENTRYPOINT ["java", "-jar", "processor-history.jar"]

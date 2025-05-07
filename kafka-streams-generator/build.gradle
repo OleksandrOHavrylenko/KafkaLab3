@@ -26,9 +26,9 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
-tasks.named('bootBuildImage') {
-    builder = 'paketobuildpacks/builder-jammy-base:latest'
-}
+//tasks.named('bootBuildImage') {
+//    builder = 'paketobuildpacks/builder-jammy-base:latest'
+//}
 
 tasks.named('test') {
     useJUnitPlatform()
