@@ -1,4 +1,4 @@
-package com.example.kafkastreamsprocessor1;
+package com.example;
 
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.KeyValue;
@@ -16,7 +16,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.example.kafkastreamsprocessor1.HistoryDomainCountProcessor.DOMAIN_COUNTS_STORE;
+import static com.example.HistoryDomainCountProcessor.DOMAIN_COUNTS_STORE;
 
 /**
  * @author Oleksandr Havrylenko

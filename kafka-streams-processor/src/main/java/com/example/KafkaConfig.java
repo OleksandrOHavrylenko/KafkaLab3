@@ -1,4 +1,4 @@
-package com.example.kafkastreamsprocessor1;
+package com.example;
 
 import com.opencsv.CSVParser;
 import org.apache.kafka.common.serialization.Serdes;

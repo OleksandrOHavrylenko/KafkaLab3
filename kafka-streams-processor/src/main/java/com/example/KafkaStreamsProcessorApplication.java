@@ -1,13 +1,13 @@
-package com.example.kafkastreamsprocessor1;
+package com.example;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class KafkaStreamsProcessor1Application {
+public class KafkaStreamsProcessorApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(KafkaStreamsProcessor1Application.class, args);
+        SpringApplication.run(KafkaStreamsProcessorApplication.class, args);
     }
 
 }
