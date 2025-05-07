@@ -15,7 +15,7 @@ public class GeneratorApplication {
     public static void main(String[] args) {
         final Properties producerProperties = new Properties() {{
             put(BOOTSTRAP_SERVERS_CONFIG, System.getenv()
-                    .getOrDefault("BOOTSTRAP_SERVERS", "broker-1:19092, broker-2:19092, broker-3:19092"));
+                    .getOrDefault("BOOTSTRAP_SERVERS", "localhost:29092, localhost:39092, localhost:49092"));
             put(KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
             put(VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
             put(CLIENT_ID_CONFIG, System.getenv().getOrDefault("CLIENT_ID", "history-producer"));

@@ -35,7 +35,7 @@ apply plugin: "com.github.johnrengelman.shadow"
 dependencies {
     implementation 'org.slf4j:slf4j-api:2.0.16'
     implementation 'ch.qos.logback:logback-classic:1.5.16'
-    implementation 'org.apache.kafka:kafka-clients:4.0.0'
+    implementation 'org.apache.kafka:kafka-clients:7.9.0-ccs'
     implementation 'com.opencsv:opencsv:5.3'
 //    implementation 'org.apache.commons:commons-csv:1.14.0'
 }

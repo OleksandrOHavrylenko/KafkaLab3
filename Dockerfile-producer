@@ -7,17 +7,17 @@ COPY gradlew .
 COPY gradle ./gradle
 
 # Copy the build configuration and source code
-COPY . ./
+COPY ./kafka-streams-generator ./
 
 # Build the application
-RUN ./gradlew kafka-streams-generator:shadowJar
+RUN ./gradlew shadowJar
 
 # Stage 2: Create the runtime image
 FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copy the JAR file from the build stage
-COPY --from=build /app/kafka-streams-generator/build/libs/*.jar generator-history.jar
+COPY --from=build /app/build/libs/*.jar generator-history.jar
 
 ENV OUTPUT_TOPIC="history"
 ENV DEAD_LETTER_QUEUE="dlq"

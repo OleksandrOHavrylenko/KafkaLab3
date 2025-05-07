@@ -1,5 +1,4 @@
 rootProject.name = 'kafka-streams-lab'
 include 'kafka-streams-generator'
 include 'kafka-streams-processor'
-include 'kafka-streams-processor1'
 

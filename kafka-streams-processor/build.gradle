@@ -1,20 +1,11 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath "gradle.plugin.com.github.jengelman.gradle.plugins:shadow:7.0.0"
-    }
-}
-
 plugins {
-    id "java"
-    id "idea"
-    id "eclipse"
+    id 'java'
+    id 'org.springframework.boot' version '3.4.5'
+    id 'io.spring.dependency-management' version '1.1.7'
 }
 
 group = 'com.example'
-version = "0.0.1"
+version = '0.0.1-SNAPSHOT'
 
 java {
     toolchain {
@@ -24,42 +15,22 @@ java {
 
 repositories {
     mavenCentral()
-
-    maven {
-        url "https://packages.confluent.io/maven"
-    }
 }
-
-apply plugin: "com.github.johnrengelman.shadow"
 
 dependencies {
-    implementation 'org.slf4j:slf4j-api:2.0.16'
-    implementation 'ch.qos.logback:logback-classic:1.5.16'
-//    implementation 'org.apache.kafka:kafka-clients:4.0.0'
-//    implementation 'org.apache.kafka:kafka-streams:4.0.0'
-    implementation 'org.apache.kafka:kafka-clients:7.9.0-ccs'
-    implementation 'org.apache.kafka:kafka-streams:7.9.0-ccs'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.apache.kafka:kafka-streams'
+    implementation 'org.springframework.kafka:spring-kafka'
     implementation 'com.opencsv:opencsv:5.3'
-    implementation("com.google.guava:guava:33.4.8-jre")
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
-//    implementation 'org.apache.commons:commons-csv:1.14.0'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.kafka:spring-kafka-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
-jar {
-    manifest {
-        attributes(
-                "Class-Path": configurations.compileClasspath.collect { it.getName() }.join(" "),
-                "Main-Class": "com.example.ProcessorApplication"
-        )
-    }
+tasks.named('bootBuildImage') {
+    builder = 'paketobuildpacks/builder-jammy-base:latest'
 }
 
-test {
+tasks.named('test') {
     useJUnitPlatform()
-}
-
-shadowJar {
-    archiveBaseName = "processor-history"
-    archiveClassifier = ''
 }
