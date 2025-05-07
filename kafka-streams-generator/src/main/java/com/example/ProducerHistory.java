@@ -47,7 +47,6 @@ public class ProducerHistory {
             logger.error("csv file reading exception: ", e);
         } finally {
             logger.info("ProducerApp shutdown ");
-            shutdown();
         }
     }
 
