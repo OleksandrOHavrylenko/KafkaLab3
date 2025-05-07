@@ -10,6 +10,7 @@ import org.apache.kafka.streams.state.KeyValueStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -27,14 +28,12 @@ public class HistoryDomainCountProcessor {
     public static final String OUTPUT_TOPIC = "output-domain-counts";
     public static final String DOMAIN_COUNTS_STORE = "domain-counts";
 
-    final StreamsBuilder streamsBuilder;
-    final CSVParser parser = new CSVParser();
+    @Autowired
+    private CSVParser parser;
 
-    public HistoryDomainCountProcessor(final StreamsBuilder streamsBuilder) {
-        this.streamsBuilder = streamsBuilder;
-    }
 
-    void process() {
+    @Autowired
+    void process(final StreamsBuilder streamsBuilder) {
         KStream<String, String> historyItemsStream = streamsBuilder
                 .stream(INPUT_TOPIC, Consumed.with(Serdes.String(), Serdes.String()));
 
