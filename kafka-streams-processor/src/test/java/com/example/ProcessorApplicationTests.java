@@ -3,7 +3,7 @@ package com.example;
 import org.junit.jupiter.api.Test;
 
 //@SpringBootTest
-class KafkaStreamsProcessorApplicationTests {
+class ProcessorApplicationTests {
 
     @Test
     void contextLoads() {

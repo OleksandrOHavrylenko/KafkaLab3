@@ -20,7 +20,7 @@ import static org.apache.kafka.streams.StreamsConfig.*;
 @Configuration
 @EnableKafka
 @EnableKafkaStreams
-public class KafkaConfig {
+public class ProcessorConfig {
 
     @Bean(name = KafkaStreamsDefaultConfiguration.DEFAULT_STREAMS_CONFIG_BEAN_NAME)
     public KafkaStreamsConfiguration kStreamsConfig() {

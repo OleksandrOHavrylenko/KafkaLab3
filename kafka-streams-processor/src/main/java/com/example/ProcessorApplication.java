@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class KafkaStreamsProcessorApplication {
+public class ProcessorApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(KafkaStreamsProcessorApplication.class, args);
+        SpringApplication.run(ProcessorApplication.class, args);
     }
 
 }
