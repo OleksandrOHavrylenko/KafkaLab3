@@ -21,7 +21,7 @@ docker-compose -f docker-compose-kafka-kraft.yml up -d
 docker-compose -f compose.yml up -d --build && docker-compose rm -f
 ```
 
-### 4 Check the Metrics report during running the test.
+### 4 Check the result of top five domains from the history.csv file an endpoint.
 
 ```Shell
 curl -X GET http://localhost:8080/topFiveDomains
