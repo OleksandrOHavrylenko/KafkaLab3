@@ -40,7 +40,7 @@ public class HistoryDomainCountProcessor {
                 .filter((key, value) -> value.length == 6)
                 .mapValues(this::getHost)
                 .mapValues(this::getTopLevelDomain)
-                .peek((key, value) -> System.out.println("key: " + key + " value: " + value))
+                .peek((key, value) -> logger.debug("key: " + key + " value: " + value))
                 .groupBy((key, domain) -> domain, Grouped.with(Serdes.String(), Serdes.String()))
                 .count(Materialized.<String, Long, KeyValueStore<Bytes, byte[]>>as(DOMAIN_COUNTS_STORE));
 

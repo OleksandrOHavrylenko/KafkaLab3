@@ -12,13 +12,13 @@ docker-compose -f docker-compose-kafka-kraft.yml up -d
 ### 2 Run script corresponding to the test
 
 ```Shell
- ./scripts/init.sh
+./scripts/init.sh
 ```
 
 ### 3 Start docker-compose file to run history producer and consumer
 
 ```Shell
-docker-compose -f compose.yml up -d && docker-compose rm -f
+docker-compose -f compose.yml up -d --build && docker-compose rm -f
 ```
 
 ### 4 Check the Metrics report during running the test.
