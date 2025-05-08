@@ -1,6 +1,6 @@
 .gradle/
 .idea/
-input/
+input/history.csv
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/

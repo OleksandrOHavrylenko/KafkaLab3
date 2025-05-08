@@ -20,11 +20,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-processor
+    ports:
+      - 8080:8080
     networks:
       - kafka-net
     environment:
       INPUT_TOPIC: "history"
-      CONSUMER_GROUP: "domain-count-processor"
+      APP_ID: "history-processor"
     depends_on:
       - producer-history
 

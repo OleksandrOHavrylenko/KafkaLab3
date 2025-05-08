@@ -26,13 +26,13 @@ public class HistoryDomainController {
 
     final private StreamsBuilderFactoryBean factoryBean;
 
-    private Map<String, Long> domainCounts = new HashMap<>();
+    private final Map<String, Long> domainCounts = new HashMap<>();
 
     public HistoryDomainController(final StreamsBuilderFactoryBean factoryBean) {
         this.factoryBean = factoryBean;
     }
 
-    @GetMapping("/topFive")
+    @GetMapping("/topFiveDomains")
     public ResponseEntity<Map<String, Long>> getWordCount() {
         KafkaStreams kafkaStreams = factoryBean.getKafkaStreams();
         ReadOnlyKeyValueStore<String, Long> counts = kafkaStreams.store(
