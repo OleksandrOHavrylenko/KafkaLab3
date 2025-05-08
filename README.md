@@ -1,4 +1,4 @@
-# How to Run tests with Kafka cluster
+# How to Run history domain counter project
 ### 0 Prepare correct history.csv file. 
 Put correct history.csv file to /input directory.
 history.csv file format should be like /input/history-example.csv
