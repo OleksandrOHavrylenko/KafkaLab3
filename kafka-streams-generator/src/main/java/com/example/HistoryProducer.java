@@ -50,7 +50,8 @@ public class HistoryProducer {
         if(line.length != 6){
             logger.error("Parsed history message: size={}, line: {}, ", line.length, line);
             kafkaTemplate.send(this.dlq, "producer" , String.join(",", line));
+        } else {
+            kafkaTemplate.send(this.topic, String.join(",", line));
         }
-        kafkaTemplate.send(this.topic, String.join(",", line));
     }
 }
